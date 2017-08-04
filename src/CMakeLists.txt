@@ -21,6 +21,20 @@
 ############################################################################
 
 set(LINPHONE_CXX_OBJECTS_PRIVATE_HEADER_FILES
+	call/call.h
+	chat/chat-room.h
+	conference/conference.h
+	conference/conference-listener.h
+	conference/conference-p.h
+	conference/local-conference.h
+	conference/params/call-session-params.h
+	conference/params/call-session-params-p.h
+	conference/params/media-session-params.h
+	conference/participant.h
+	conference/remote-conference.h
+	conference/session/call-session.h
+	conference/session/call-session-p.h
+	conference/session/media-session.h
 	cpim/cpim.h
 	cpim/header/cpim-core-headers.h
 	cpim/header/cpim-generic-header.h
@@ -40,6 +54,16 @@ set(LINPHONE_CXX_OBJECTS_PRIVATE_HEADER_FILES
 )
 
 set(LINPHONE_CXX_OBJECTS_SOURCE_FILES
+	call/call.cpp
+	chat/chat-room.cpp
+	conference/conference.cpp
+	conference/local-conference.cpp
+	conference/params/call-session-params.cpp
+	conference/params/media-session-params.cpp
+	conference/participant.cpp
+	conference/remote-conference.cpp
+	conference/session/call-session.cpp
+	conference/session/media-session.cpp
 	cpim/header/cpim-core-headers.cpp
 	cpim/header/cpim-generic-header.cpp
 	cpim/header/cpim-header.cpp
