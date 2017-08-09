@@ -50,6 +50,7 @@ set(LINPHONE_CXX_OBJECTS_PRIVATE_HEADER_FILES
 	object/object-p.h
 	object/object.h
 	object/singleton.h
+	utils/content-type.h
 	utils/general.h
 	utils/utils.h
 )
@@ -74,6 +75,7 @@ set(LINPHONE_CXX_OBJECTS_SOURCE_FILES
 	logger/logger.cpp
 	object/clonable-object.cpp
 	object/object.cpp
+	utils/content-type.cpp
 	utils/utils.cpp
 )
 

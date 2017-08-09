@@ -1,5 +1,5 @@
 /*
- * utils.h
+ * content-type.cpp
  * Copyright (C) 2017  Belledonne Communications SARL
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,32 +16,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _UTILS_H_
-#define _UTILS_H_
+#include "content-type.h"
 
-#include <string>
-#include <vector>
-
-#include "general.h"
-
-// =============================================================================
+using namespace std;
 
 LINPHONE_BEGIN_NAMESPACE
 
-namespace Utils {
-	bool iequals (const std::string &a, const std::string &b);
+// =============================================================================
 
-	std::vector<std::string> split (const std::string &str, const std::string &delimiter);
+bool ContentType::isFileTransfer (const string &contentType) {
+	return "application/vnd.gsma.rcs-ft-http+xml" == contentType;
+}
 
-	inline std::vector<std::string> split (const std::string &str, char delimiter) {
-		return split(str, std::string(1, delimiter));
-	}
+bool ContentType::isImIsComposing (const string &contentType) {
+	return "application/im-iscomposing+xml" == contentType;
+}
 
-	int stoi (const std::string &str, size_t *idx = 0, int base = 10);
+bool ContentType::isImdn (const string &contentType) {
+	return "message/imdn+xml" == contentType;
+}
 
-	char * utf8ToChar(uint32_t ic);
+bool ContentType::isText (const string &contentType) {
+	return "text/plain" == contentType;
 }
 
 LINPHONE_END_NAMESPACE
-
-#endif // ifndef _UTILS_H_
