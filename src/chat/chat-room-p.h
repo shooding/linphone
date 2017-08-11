@@ -24,6 +24,8 @@
 #include "object/object-p.h"
 
 #include "chat-room.h"
+#include "is-composing.h"
+#include "is-composing-listener.h"
 
 #include "private.h"
 
@@ -33,15 +35,12 @@
 
 LINPHONE_BEGIN_NAMESPACE
 
-class ChatRoomPrivate : public ObjectPrivate {
+class ChatRoomPrivate : public ObjectPrivate, public IsComposingListener {
 public:
+	ChatRoomPrivate (LinphoneCore *core);
 	virtual ~ChatRoomPrivate ();
 
 private:
-	static int refreshComposing (void *data, unsigned int revents);
-	static int remoteRefreshComposing (void *data, unsigned int revents);
-	static int stopComposing (void *data, unsigned int revents);
-
 	static int createChatMessageFromDb (void *data, int argc, char **argv, char **colName);
 	static void onWeakMessageDestroyed (void *obj, belle_sip_object_t *messageBeingDestroyed);
 
@@ -60,16 +59,7 @@ public:
 	void setCall (LinphoneCall *call) { this->call = call; }
 
 private:
-	std::string createIsComposingXml () const;
-	void deleteComposingIdleTimer ();
-	void deleteComposingRefreshTimer ();
-	void deleteRemoteComposingRefreshTimer ();
-	int refreshComposing (unsigned int revents);
-	int remoteRefreshComposing (unsigned int revents);
 	void sendIsComposingNotification ();
-	int stopComposing (unsigned int revents);
-	void processImdn (xmlparsing_context_t *xmlCtx);
-	void processIsComposingNotification (xmlparsing_context_t *xmlCtx);
 
 	int createChatMessageFromDb (int argc, char **argv, char **colName);
 	void onWeakMessageDestroyed (LinphoneChatMessage *messageBeingDestroyed);
@@ -78,7 +68,6 @@ private:
 	int sqlRequest (sqlite3 *db, const std::string &stmt);
 	void sqlRequestMessage (sqlite3 *db, const std::string &stmt);
 	std::list<LinphoneChatMessage *> findMessages (const std::string &messageId);
-	LinphoneChatMessage * findMessageWithDirection (const std::string &messageId, LinphoneChatMessageDir direction);
 	void storeOrUpdateMessage (LinphoneChatMessage *msg);
 
 public:
@@ -90,13 +79,12 @@ private:
 	void imdnReceived (const std::string &text);
 	void isComposingReceived (const std::string &text);
 
-public:
-	static const int composingDefaultIdleTimeout = 15;
-	static const int composingDefaultRefreshTimeout = 60;
-	static const int composingDefaultRemoteRefreshTimeout = 120;
-	static const std::string imdnPrefix;
-	static const std::string isComposingPrefix;
+private:
+	void isComposingStateChanged (bool isComposing);
+	void isRemoteComposingStateChanged (bool isComposing);
+	void isComposingRefreshNeeded ();
 
+public:
 	LinphoneChatRoom *cBackPointer = nullptr;
 	LinphoneCore *core = nullptr;
 	LinphoneCall *call = nullptr;
@@ -105,14 +93,12 @@ public:
 	int unreadCount = -1;
 	bool isComposing = false;
 	bool remoteIsComposing = false;
-	belle_sip_source_t *remoteComposingRefreshTimer = nullptr;
-	belle_sip_source_t *composingIdleTimer = nullptr;
-	belle_sip_source_t *composingRefreshTimer = nullptr;
 	std::list<LinphoneChatMessage *> messages;
 	std::list<LinphoneChatMessage *> transientMessages;
 	std::list<LinphoneChatMessage *> weakMessages;
 	std::list<LinphoneChatMessageCharacter *> receivedRttCharacters;
 	LinphoneChatMessage *pendingMessage = nullptr;
+	IsComposing isComposingHandler;
 
 public:
 	L_DECLARE_PUBLIC(ChatRoom);

@@ -70,6 +70,7 @@ public:
 	void deleteHistory ();
 	void deleteMessage (LinphoneChatMessage *msg);
 	LinphoneChatMessage * findMessage (const std::string& messageId);
+	LinphoneChatMessage * findMessageWithDirection (const std::string &messageId, LinphoneChatMessageDir direction);
 	uint32_t getChar () const;
 	std::list<LinphoneChatMessage *> getHistory (int nbMessages);
 	int getHistorySize ();

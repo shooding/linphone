@@ -23,6 +23,8 @@
 set(LINPHONE_CXX_OBJECTS_PRIVATE_HEADER_FILES
 	call/call.h
 	chat/chat-room.h
+	chat/imdn.h
+	chat/is-composing.h
 	conference/conference.h
 	conference/conference-listener.h
 	conference/conference-p.h
@@ -58,6 +60,8 @@ set(LINPHONE_CXX_OBJECTS_PRIVATE_HEADER_FILES
 set(LINPHONE_CXX_OBJECTS_SOURCE_FILES
 	call/call.cpp
 	chat/chat-room.cpp
+	chat/imdn.cpp
+	chat/is-composing.cpp
 	conference/conference.cpp
 	conference/local-conference.cpp
 	conference/params/call-session-params.cpp
