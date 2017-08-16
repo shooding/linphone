@@ -1241,6 +1241,13 @@ class LinphoneCoreImpl implements LinphoneCore {
 		return getAudioDscp(nativePtr);
 	}
 
+	private native int getAudioFeatures(long nativePtr);
+	@Override
+	public synchronized int getAudioFeatures() {
+        // By shooding
+		return getAudioFeatures(nativePtr);
+	}
+
 	private native void setVideoDscp(long nativePtr, int dscp);
 	@Override
 	public synchronized void setVideoDscp(int dscp) {

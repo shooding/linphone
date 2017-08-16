@@ -7792,6 +7792,11 @@ JNIEXPORT jstring JNICALL Java_org_linphone_core_LinphoneCoreImpl_getVideoPreset
 	return tmp ? env->NewStringUTF(tmp) : NULL;
 }
 
+//By shooding
+JNIEXPORT jint JNICALL ava_org_linphone_core_getAudioFeatures(JNIEnv *env, jobject thiz, jlong ptr) {
+	return linphone_core_get_audio_features((LinphoneCore*)ptr);
+}
+
 extern "C" jobject Java_org_linphone_core_LinphoneCallImpl_getChatRoom(JNIEnv* env ,jobject thiz, jlong ptr) {
 	return getChatRoom(env, linphone_call_get_chat_room((LinphoneCall *) ptr));
 }

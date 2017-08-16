@@ -1891,6 +1891,12 @@ public interface LinphoneCore {
 	int getAudioDscp();
 
 	/**
+	 * By shooding
+	 * @return the audio feature
+	 */
+	int getAudioFeatures();
+
+	/**
 	 * Sets the UDP port used for video streaming.
 	**/
 	void setVideoPort(int port);
